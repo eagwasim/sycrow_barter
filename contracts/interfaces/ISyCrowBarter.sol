@@ -15,30 +15,16 @@ interface ISyCrowBarter {
 
     function getTokens() external view returns (address, address);
 
-    function getBarterBalance() external view returns (uint256);
-
-    function getDeadline() external view returns (uint256);
-
-    function getBarterType() external view returns (ISyCrowBarterType);
-
     function getTrades()
         external
         view
-        returns (address[] memory, uint256[] memory);
+        returns (address[] memory, uint256[] memory, uint256[] memory);
 
     function tradeTokenForToken(uint256 inAmount) external;
 
-    function tradeTokenForEth(uint256 inAmount) external payable;
+    function tradeTokenForEth(uint256 inAmount) external;
 
     function tradeEthForToken(uint256 inAmount) external payable;
 
-    function tradeTokenForToken() external;
-
-    function tradeTokenForEth() external payable;
-
-    function tradeEthForToken() external payable;
-
     function withdraw() external;
-
-    function withdraw(address _erc20TokenAddress) external view;
 }

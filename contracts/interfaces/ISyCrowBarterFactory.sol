@@ -9,12 +9,9 @@ interface ISyCrowBarterFactory {
         address indexed _createdBy,
         address indexed _barter,
         address _inToken,
-        address outToken,
-        uint256 _deposited,
-        uint256 _expected,
+        address _outToken,
         uint256 _deadline,
-        bool _shouldList,
-        bool _allowMultiBarter
+        bool _shouldList
     );
     event SyCrowTradeByBarter(
         address indexed _barter,
@@ -29,61 +26,31 @@ interface ISyCrowBarterFactory {
         uint256 _value2
     );
 
-    function createTokenForTokenBarter(
+    function createBarter(
         address _inToken,
         address _outToken,
         uint256 _deposited,
         uint256 _expected,
         uint256 _deadline,
-        bool _shouldList,
-        bool _allowMultiBarter
-    ) external returns (address barter);
-
-    function createTokenForEthBarter(
-        address _inToken,
-        uint256 _deposited,
-        uint256 _expected,
-        uint256 _deadline,
-        bool _shouldList,
-        bool _allowMultiBarter
-    ) external returns (address barter);
-
-    function createEthForTokenBarter(
-        address _outToken,
-        uint256 _deposited,
-        uint256 _expected,
-        uint256 _deadline,
+        ISyCrowBarterType _type,
         bool _shouldList,
         bool _allowMultiBarter
     ) external payable returns (address barter);
 
-    function totalBarterCount() external returns (uint);
 
-    function setBaseFee(uint256 _baseFee) external;
+    function totalBarterDeployed() external returns (uint);
 
-    function getBaseFee() external view returns (uint256);
-
-    function getListingFee() external view returns (uint256);
-
-    function setListingFee(uint256 _listingFee) external;
+    function getFees() external returns (uint256 baseFee, uint256 listingFee);
 
     function setFeeCollector(address _feeCollector) external;
 
-    function getFeeCollector() external view returns (address);
+    function feeCollector() external view returns (address);
 
     function allBartersLength() external view returns (uint256);
 
     function allBarters(uint256) external view returns (address barter);
 
-    function userBartersLength(address _userAddress)
-        external
-        view
-        returns (uint256);
-
-    function userBarters(address _userAddress, uint256 _atIndex)
-        external
-        view
-        returns (address barter);
+    function getUserBarters(address userAddress) external view returns (address[] memory barters);
 
     function isPaused() external view returns (bool);
 
@@ -94,8 +61,6 @@ interface ISyCrowBarterFactory {
         uint256 _listingFee,
         bool enable
     ) external;
-
-    function isUsingPriceFeeds() external view returns (bool);
 
     function notifyTradeByBarter(
         address _barter,

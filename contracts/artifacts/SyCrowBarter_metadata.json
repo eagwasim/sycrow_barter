@@ -1,0 +1,412 @@
+{
+	"compiler": {
+		"version": "0.8.13+commit.abaa5c0e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "previousOwner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "_initialized",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "barterType",
+				"outputs": [
+					{
+						"internalType": "enum ISyCrowBarterType",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "deadline",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "factory",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getAmounts",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getTokens",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "getTradeOutAmount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getTrades",
+				"outputs": [
+					{
+						"internalType": "address[]",
+						"name": "",
+						"type": "address[]"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "enum ISyCrowBarterType",
+						"name": "_barterType",
+						"type": "uint8"
+					},
+					{
+						"internalType": "address",
+						"name": "inToken",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "outToken",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amountDeposited",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amountExpected",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_deadline",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "allowMultiBarter",
+						"type": "bool"
+					},
+					{
+						"internalType": "address",
+						"name": "_WETH",
+						"type": "address"
+					}
+				],
+				"name": "initialize",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "renounceOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "totalTradeAmount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "inAmount",
+						"type": "uint256"
+					}
+				],
+				"name": "tradeEthForToken",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "inAmount",
+						"type": "uint256"
+					}
+				],
+				"name": "tradeTokenForEth",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "inAmount",
+						"type": "uint256"
+					}
+				],
+				"name": "tradeTokenForToken",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "withdraw",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"owner()": {
+					"details": "Returns the address of the current owner."
+				},
+				"renounceOwnership()": {
+					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
+				},
+				"transferOwnership(address)": {
+					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/SycrowBarter.sol": "SyCrowBarter"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/access/Ownable.sol": {
+			"keccak256": "0x24e0364e503a9bbde94c715d26573a76f14cd2a202d45f96f52134ab806b67b9",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://e12cbaa7378fd9b62280e4e1d164bedcb4399ce238f5f98fc0eefb7e50577981",
+				"dweb:/ipfs/QmXRoFGUgfsaRkoPT5bxNMtSayKTQ8GZATLPXf69HcRA51"
+			]
+		},
+		"@openzeppelin/contracts/utils/Context.sol": {
+			"keccak256": "0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6df0ddf21ce9f58271bdfaa85cde98b200ef242a05a3f85c2bc10a8294800a92",
+				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
+			]
+		},
+		"contracts/SycrowBarter.sol": {
+			"keccak256": "0xfa49ef2eed71dc3a54ce4464b79e28ffbd1dc20fe4711046a73a1423f5a08bca",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://a6ad9e45ab6203d07fb4b53ed371502e671de15831218422738e3f238a781f4c",
+				"dweb:/ipfs/QmcyQ2mNEqRJGCQoQFKvHubbjhYpLg2jjE9bS2jyg6ZAgv"
+			]
+		},
+		"contracts/interfaces/IERC20.sol": {
+			"keccak256": "0x6a893389aeb9cf9b279b402c7d4b56196c6cdcc13dcb1802dfcf6e29559d3ba3",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://7d554598212ea1aa0c0fccee4b9b469df5d938bafa5c42c2a67a93f3b715fd63",
+				"dweb:/ipfs/QmVbvYR5QFtpY39fzwTWKk1ghpXusizgz62wbpf75GLXkn"
+			]
+		},
+		"contracts/interfaces/ISyCrowBarter.sol": {
+			"keccak256": "0xfda4532f79218f318917a7e6eead42c9b8304ae2198009951a8f015d6f1f7fd6",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://b8d4becdae792a02fe9fc65aa7805565943ffde6cae75653df6571ee2327d35e",
+				"dweb:/ipfs/QmVw3JBK8zztQ1aPbfSHASfwh2sN9ceSXen1Vo5cteahV4"
+			]
+		},
+		"contracts/interfaces/ISyCrowBarterFactory.sol": {
+			"keccak256": "0x1d6104a443c5f17b423dce3651cf126294036e8392b1d3b413e42372c574294c",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://08a2ae6a25a5fcedf4e00b35757a1505608a4bac82fd0d69c5ca31ce8586c017",
+				"dweb:/ipfs/QmZEm9BDYBxhxX4v13zYoKbsEJDHuEsZXR9ow9nCnfTGDu"
+			]
+		},
+		"contracts/interfaces/IWETH.sol": {
+			"keccak256": "0x48429d7752165439258d8d6a26ea29150d5af05374b9182de97982a544ef35d3",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://b09b55a8331e9de6a903b319e3e0a89e2fafb38bdce098ca14aa05b08723c792",
+				"dweb:/ipfs/QmdQtkqgCdwAfVFWX1cAGi8urTS7D23ax3ETs4ykLXFYNT"
+			]
+		},
+		"contracts/libraries/TransferHelper.sol": {
+			"keccak256": "0x4d076df1676fb5f85d7dda5ef0b5610c3aebd2729a7c32a1bf3bad105f1aac7e",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://354e47ea2ac17432f862c476e95a7e504607c1829a125e9f4257c4ec99fcb4e6",
+				"dweb:/ipfs/Qme2sV3FsSvN3uALvpN1tbQkTpUgFEjg2gHXSrwEkGjgCZ"
+			]
+		}
+	},
+	"version": 1
+}
