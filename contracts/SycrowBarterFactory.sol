@@ -71,6 +71,14 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
     ) external override returns (address barter) {
         require(inToken != outToken, "SyCrowBarterFactory: IDENTICAL_TOKENS");
 
+        uint256 totalFees = getBaseFee();
+
+        if (shouldList) {
+            totalFees = totalFees + getListingFee();
+        }
+
+        require (msg.value >= totalFees, "SyCrowBarterFactory: PAYMENT_UNVALUED");
+
         require(
             _deadline >= block.timestamp,
             "SyCrowBarterFactory: DEADLINE_IN_THE_PAST"
@@ -92,6 +100,8 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
             deployedBarterAddress,
             deposited
         );
+
+        TransferHelper.safeTransferETH(_feeCollector, msg.value);
 
         SyCrowBarter syCrowBarter = SyCrowBarter(deployedBarterAddress);
 
@@ -121,6 +131,14 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
         bool shouldList,
         bool allowMultiBarter
     ) external override returns (address barter) {
+        uint256 totalFees = getBaseFee();
+
+        if (shouldList) {
+            totalFees = totalFees + getListingFee();
+        }
+
+        require (msg.value >= totalFees, "SyCrowBarterFactory: PAYMENT_UNVALUED");
+
         require(
             _deadline >= block.timestamp,
             "SyCrowBarterFactory: DEADLINE_IN_THE_PAST"
@@ -142,6 +160,8 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
             deployedBarterAddress,
             deposited
         );
+
+        TransferHelper.safeTransferETH(_feeCollector, msg.value);
 
         SyCrowBarter syCrowBarter = SyCrowBarter(deployedBarterAddress);
 
@@ -176,16 +196,24 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
             "SyCrowBarterFactory: DEADLINE_IN_THE_PAST"
         );
 
+        uint256 totalFees = getBaseFee();
+
+        if (shouldList) {
+            totalFees = totalFees + getListingFee();
+        }
+
         nonZero(deposited);
         nonZero(expected);
 
-        require(msg.value >= deposited, "SyCrowBarterFactory: INSUFFICIENT_BALANCE");
+        require(msg.value >= (deposited + totalFees), "SyCrowBarterFactory: INSUFFICIENT_BALANCE");
 
         address deployedBarterAddress = deployBarter();
 
         IWETH(WETH).deposit{value: deposited}();
 
         TransferHelper.safeTransfer(WETH, deployedBarterAddress, deposited);
+        
+        TransferHelper.safeTransferETH(_feeCollector, msg.value);
 
         SyCrowBarter syCrowBarter = SyCrowBarter(deployedBarterAddress);
 
@@ -346,7 +374,7 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
         uint256 _value2
     ) external isChild {
         emit SyCrowWithdrawFromBater(_barter, _trader, _value1, _value2);
-        
+
         for (uint256 index = 0; index < _barters.length; index++) {
             if (_barters[index] == _barter) {
                 delete _barters[index];
