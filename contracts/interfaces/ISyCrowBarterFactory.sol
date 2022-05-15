@@ -37,8 +37,7 @@ interface ISyCrowBarterFactory {
         bool _allowMultiBarter
     ) external payable returns (address barter);
 
-
-    function totalBarterDeployed() external returns (uint);
+    function totalBarterDeployed() external returns (uint256);
 
     function getFees() external returns (uint256 baseFee, uint256 listingFee);
 
@@ -50,7 +49,20 @@ interface ISyCrowBarterFactory {
 
     function allBarters(uint256) external view returns (address barter);
 
-    function getUserBarters(address userAddress) external view returns (address[] memory barters);
+    function getUserBarters(address userAddress)
+        external
+        view
+        returns (address[] memory barters);
+
+    function getUserBartersLength(address userAddress)
+        external
+        view
+        returns (uint256);
+
+    function getUserBarter(address userAddress, uint256 index)
+        external
+        view
+        returns (address);
 
     function isPaused() external view returns (bool);
 

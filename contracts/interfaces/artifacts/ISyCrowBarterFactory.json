@@ -54,7 +54,9 @@
 			"createBarter(address,address,uint256,uint256,uint256,uint8,bool,bool)": "40939a6d",
 			"feeCollector()": "c415b95c",
 			"getFees()": "db8d55f1",
+			"getUserBarter(address,uint256)": "60612180",
 			"getUserBarters(address)": "e71a76c9",
+			"getUserBartersLength(address)": "48403459",
 			"isPaused()": "b187bd26",
 			"notifyTradeByBarter(address,address,uint256,uint256)": "f52701b7",
 			"notifyWithdrawFromBarter(address,address,uint256,uint256)": "33796a0e",
@@ -299,6 +301,30 @@
 					"internalType": "address",
 					"name": "userAddress",
 					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "index",
+					"type": "uint256"
+				}
+			],
+			"name": "getUserBarter",
+			"outputs": [
+				{
+					"internalType": "address",
+					"name": "",
+					"type": "address"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "userAddress",
+					"type": "address"
 				}
 			],
 			"name": "getUserBarters",
@@ -307,6 +333,25 @@
 					"internalType": "address[]",
 					"name": "barters",
 					"type": "address[]"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "userAddress",
+					"type": "address"
+				}
+			],
+			"name": "getUserBartersLength",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
 				}
 			],
 			"stateMutability": "view",

@@ -239,6 +239,30 @@
 						"internalType": "address",
 						"name": "userAddress",
 						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					}
+				],
+				"name": "getUserBarter",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "userAddress",
+						"type": "address"
 					}
 				],
 				"name": "getUserBarters",
@@ -247,6 +271,25 @@
 						"internalType": "address[]",
 						"name": "barters",
 						"type": "address[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "userAddress",
+						"type": "address"
+					}
+				],
+				"name": "getUserBartersLength",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -420,11 +463,11 @@
 			]
 		},
 		"contracts/interfaces/ISyCrowBarterFactory.sol": {
-			"keccak256": "0x1d6104a443c5f17b423dce3651cf126294036e8392b1d3b413e42372c574294c",
+			"keccak256": "0xb673697033e993b0c5762652404d7584529d0a9a0fc3b89821c0852e43bce95f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://08a2ae6a25a5fcedf4e00b35757a1505608a4bac82fd0d69c5ca31ce8586c017",
-				"dweb:/ipfs/QmZEm9BDYBxhxX4v13zYoKbsEJDHuEsZXR9ow9nCnfTGDu"
+				"bzz-raw://1a303380fa11e63b957c764eba783107c22e49ceded0e8d08f379c7b1d7a4e39",
+				"dweb:/ipfs/QmaJ54w8imEB2UPjrANzc7CWZpYcLmo6BVb2aGEEHgiymZ"
 			]
 		}
 	},

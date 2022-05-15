@@ -11,19 +11,19 @@ import "./interfaces/IWETH.sol";
 contract SyCrowBarter is ISyCrowBarter, Ownable {
     address public immutable override factory;
     uint256 public totalTradeAmount;
-    uint256 public deadline;
+    bool public allowMultiBarter;
 
+    uint256 public deadline;
     ISyCrowBarterType public barterType;
-    address private  WETH;
-    
+
+    address private WETH;
+
     bool public _initialized = false;
     address private _depositedTokenAddress;
     address private _expectedTokenAddress;
     uint256 private _depositedAmount;
     uint256 private _expectedAmount;
-    bool private _allowMultiBarter;
 
-   
     BaterTrade[] private _trades;
 
     struct BaterTrade {
@@ -75,7 +75,7 @@ contract SyCrowBarter is ISyCrowBarter, Ownable {
         uint256 amountDeposited,
         uint256 amountExpected,
         uint256 _deadline,
-        bool allowMultiBarter,
+        bool _allowMultiBarter,
         address _WETH
     ) external returns (bool) {
         require(msg.sender == factory, "SyCrowBarter: FORBIDDEN");
@@ -98,8 +98,8 @@ contract SyCrowBarter is ISyCrowBarter, Ownable {
 
         barterType = _barterType;
 
-        _allowMultiBarter = allowMultiBarter;
-        
+        allowMultiBarter = _allowMultiBarter;
+
         WETH = _WETH;
 
         _initialized = true;
@@ -159,8 +159,11 @@ contract SyCrowBarter is ISyCrowBarter, Ownable {
         checkPaused
         checkBarterType(ISyCrowBarterType.TOKEN_FOR_TOKEN)
     {
-        if(!_allowMultiBarter){
-            require(inAmount >= _expectedAmount, "SyCrowBarter: AMOUNT_LOWER_THAN_REQURIRED");
+        if (!allowMultiBarter) {
+            require(
+                inAmount >= _expectedAmount,
+                "SyCrowBarter: AMOUNT_LOWER_THAN_REQURIRED"
+            );
         }
         _tradeTokenForToken(inAmount);
     }
@@ -173,23 +176,29 @@ contract SyCrowBarter is ISyCrowBarter, Ownable {
         checkPaused
         checkBarterType(ISyCrowBarterType.ETH_FOR_TOKEN)
     {
-        if (!_allowMultiBarter){
-            require(inAmount >= _expectedAmount, "SyCrowBarter: AMOUNT_LOWER_THAN_REQURIRED");
+        if (!allowMultiBarter) {
+            require(
+                inAmount >= _expectedAmount,
+                "SyCrowBarter: AMOUNT_LOWER_THAN_REQURIRED"
+            );
         }
         _tradeTokenForEth(inAmount);
     }
 
     function tradeEthForToken(uint256 inAmount)
         external
+        payable
         override
         checkActive
         initialized
-        payable
         checkPaused
         checkBarterType(ISyCrowBarterType.TOKEN_FOR_ETH)
     {
-        if(!_allowMultiBarter){
-            require(msg.value >= _expectedAmount, "SyCrowBarter: AMOUNT_LOWER_THAN_REQURIRED");
+        if (!allowMultiBarter) {
+            require(
+                msg.value >= _expectedAmount,
+                "SyCrowBarter: AMOUNT_LOWER_THAN_REQURIRED"
+            );
         }
         _tradeEthForToken(inAmount);
     }
@@ -225,7 +234,7 @@ contract SyCrowBarter is ISyCrowBarter, Ownable {
         totalTradeAmount = totalTradeAmount + inAmount;
 
         ISyCrowBarterFactory sycrFactory = ISyCrowBarterFactory(factory);
-        
+
         sycrFactory.notifyTradeByBarter(
             address(this),
             msg.sender,
@@ -249,14 +258,15 @@ contract SyCrowBarter is ISyCrowBarter, Ownable {
             "SyCrowBarter: INSUFFICIENT_CONTRACT_BALANCE"
         );
 
-        IWETH(WETH).withdraw(outAmount);
-
         TransferHelper.safeTransferFrom(
             _expectedTokenAddress,
             msg.sender,
             address(this),
             inAmount
         );
+
+        IWETH(WETH).withdraw(outAmount);
+
         TransferHelper.safeTransferETH(msg.sender, outAmount);
 
         _trades.push(BaterTrade(msg.sender, inAmount, outAmount));
@@ -264,6 +274,7 @@ contract SyCrowBarter is ISyCrowBarter, Ownable {
         totalTradeAmount = totalTradeAmount + inAmount;
 
         ISyCrowBarterFactory sycrFactory = ISyCrowBarterFactory(factory);
+
         sycrFactory.notifyTradeByBarter(
             address(this),
             msg.sender,
@@ -350,7 +361,7 @@ contract SyCrowBarter is ISyCrowBarter, Ownable {
         }
 
         ISyCrowBarterFactory sycrFactory = ISyCrowBarterFactory(factory);
-        
+
         sycrFactory.notifyWithdrawFromBarter(
             address(this),
             msg.sender,
@@ -359,11 +370,13 @@ contract SyCrowBarter is ISyCrowBarter, Ownable {
         );
     }
 
-    function getTradeOutAmount(uint256 amount)
-        public
-        view
-        returns (uint256)
-    {
+    function getTradeOutAmount(uint256 amount) public view returns (uint256) {
         return (amount * _depositedAmount) / _expectedAmount;
     }
+
+    // Function to receive Ether. msg.data must be empty
+    receive() external payable {}
+
+    // Fallback function is called when msg.data is not empty
+    fallback() external payable {}
 }

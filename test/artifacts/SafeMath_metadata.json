@@ -107,7 +107,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"test/TokenA.sol": "SafeMath"
+			"test/TokenB.sol": "SafeMath"
 		},
 		"evmVersion": "byzantium",
 		"libraries": {},
@@ -118,10 +118,10 @@
 		"remappings": []
 	},
 	"sources": {
-		"test/TokenA.sol": {
-			"keccak256": "0x934f249c42f41a6ca7a3a2c4c3720fae70f1ffa523c0bade9ec78012bf418ba9",
+		"test/TokenB.sol": {
+			"keccak256": "0x3f14dfe2793ebcc32c0a8d13e7cf117844bd0360d160e8b0e607193d2854e1f4",
 			"urls": [
-				"bzzr://92a378c8604a373e862587aa6abbeca7034d9c3b0acb39aae06d824bbb8b0540"
+				"bzzr://24a9b93db4d4a46567d460578128f8c0cdc5c864471f7bc8ed1c3b0d1465488b"
 			]
 		}
 	},

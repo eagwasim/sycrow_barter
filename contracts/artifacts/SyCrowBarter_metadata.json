@@ -30,8 +30,25 @@
 				"type": "event"
 			},
 			{
+				"stateMutability": "payable",
+				"type": "fallback"
+			},
+			{
 				"inputs": [],
 				"name": "_initialized",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "allowMultiBarter",
 				"outputs": [
 					{
 						"internalType": "bool",
@@ -193,7 +210,7 @@
 					},
 					{
 						"internalType": "bool",
-						"name": "allowMultiBarter",
+						"name": "_allowMultiBarter",
 						"type": "bool"
 					},
 					{
@@ -304,6 +321,10 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "receive"
 			}
 		],
 		"devdoc": {
@@ -337,7 +358,7 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
+			"enabled": false,
 			"runs": 200
 		},
 		"remappings": []
@@ -360,11 +381,11 @@
 			]
 		},
 		"contracts/SycrowBarter.sol": {
-			"keccak256": "0xfa49ef2eed71dc3a54ce4464b79e28ffbd1dc20fe4711046a73a1423f5a08bca",
+			"keccak256": "0xaed21bd4913496896595363722274f7552ae1a4887f6d71645e041552da35f3a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a6ad9e45ab6203d07fb4b53ed371502e671de15831218422738e3f238a781f4c",
-				"dweb:/ipfs/QmcyQ2mNEqRJGCQoQFKvHubbjhYpLg2jjE9bS2jyg6ZAgv"
+				"bzz-raw://02e83022404bb608776cf51ee5a377a4420dc17b36ce2da3af08019b621c10c6",
+				"dweb:/ipfs/Qmbx1kWBJ7cXyr5a1QH3x6121nPpuPHmEoYF8SPnJZi8N1"
 			]
 		},
 		"contracts/interfaces/IERC20.sol": {
