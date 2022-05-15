@@ -1,0 +1,19 @@
+{
+  "name": "sycrow_barter",
+  "version": "1.0.0",
+  "description": "Sycrow Barter Core",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Agwasim Emmanuel",
+  "license": "MIT",
+  "dependencies": {
+    "@chainlink/contracts": "^0.4.1",
+    "@openzeppelin/cli": "^2.8.2",
+    "@openzeppelin/contracts": "^4.6.0"
+  }
+}
