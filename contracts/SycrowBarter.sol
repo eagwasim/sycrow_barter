@@ -3,18 +3,21 @@
 pragma solidity =0.8.13;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "./interfaces/ISyCrowBarterFactory.sol";
 import "./interfaces/IERC20.sol";
 import "./libraries/TransferHelper.sol";
 import "./interfaces/IWETH.sol";
 
-contract SyCrowBarter is ISyCrowBarter, Ownable {
+contract SyCrowBarter is ISyCrowBarter, Ownable, ReentrancyGuard {
     address public immutable override factory;
-    uint256 public totalTradeAmount;
-    bool public allowMultiBarter;
+    uint256 public override totalTradeAmount;
 
-    uint256 public deadline;
-    ISyCrowBarterType public barterType;
+    bool public override allowMultiBarter;
+    bool public override completed = false;
+
+    uint256 public override deadline;
+    ISyCrowBarterType public override barterType;
 
     address private WETH;
 
@@ -158,6 +161,7 @@ contract SyCrowBarter is ISyCrowBarter, Ownable {
         initialized
         checkPaused
         checkBarterType(ISyCrowBarterType.TOKEN_FOR_TOKEN)
+        nonReentrant
     {
         if (!allowMultiBarter) {
             require(
@@ -175,6 +179,7 @@ contract SyCrowBarter is ISyCrowBarter, Ownable {
         initialized
         checkPaused
         checkBarterType(ISyCrowBarterType.ETH_FOR_TOKEN)
+        nonReentrant
     {
         if (!allowMultiBarter) {
             require(
@@ -193,6 +198,7 @@ contract SyCrowBarter is ISyCrowBarter, Ownable {
         initialized
         checkPaused
         checkBarterType(ISyCrowBarterType.TOKEN_FOR_ETH)
+        nonReentrant
     {
         if (!allowMultiBarter) {
             require(
@@ -281,6 +287,10 @@ contract SyCrowBarter is ISyCrowBarter, Ownable {
             inAmount,
             outAmount
         );
+        
+        completed = true;
+
+        require(completed);
     }
 
     function _tradeEthForToken(uint256 inAmount) internal {

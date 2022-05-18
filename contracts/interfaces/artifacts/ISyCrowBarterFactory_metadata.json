@@ -43,12 +43,6 @@
 						"internalType": "uint256",
 						"name": "_deadline",
 						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "bool",
-						"name": "_shouldList",
-						"type": "bool"
 					}
 				],
 				"name": "SyCrowBarterCreated",
@@ -182,12 +176,12 @@
 					},
 					{
 						"internalType": "bool",
-						"name": "_shouldList",
+						"name": "_allowMultiBarter",
 						"type": "bool"
 					},
 					{
 						"internalType": "bool",
-						"name": "_allowMultiBarter",
+						"name": "_isPrivate",
 						"type": "bool"
 					}
 				],
@@ -217,16 +211,11 @@
 			},
 			{
 				"inputs": [],
-				"name": "getFees",
+				"name": "getFee",
 				"outputs": [
 					{
 						"internalType": "uint256",
-						"name": "baseFee",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "listingFee",
+						"name": "",
 						"type": "uint256"
 					}
 				],
@@ -398,11 +387,6 @@
 						"type": "uint256"
 					},
 					{
-						"internalType": "uint256",
-						"name": "_listingFee",
-						"type": "uint256"
-					},
-					{
 						"internalType": "bool",
 						"name": "enable",
 						"type": "bool"
@@ -448,26 +432,26 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
 		"contracts/interfaces/ISyCrowBarter.sol": {
-			"keccak256": "0xfda4532f79218f318917a7e6eead42c9b8304ae2198009951a8f015d6f1f7fd6",
+			"keccak256": "0x9390da53add9dfbb92ada998c97e4e0b8995ce5ff74f615d190d4958e62d0956",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b8d4becdae792a02fe9fc65aa7805565943ffde6cae75653df6571ee2327d35e",
-				"dweb:/ipfs/QmVw3JBK8zztQ1aPbfSHASfwh2sN9ceSXen1Vo5cteahV4"
+				"bzz-raw://04f234c68eb9b4a5bea631eee24f1c48c2fd76febd8a69ead7632bafea2a24db",
+				"dweb:/ipfs/QmZYcWL79qzDu1bgXKTxYeGYDujucyc9VWcEHUQboHzKbW"
 			]
 		},
 		"contracts/interfaces/ISyCrowBarterFactory.sol": {
-			"keccak256": "0xb673697033e993b0c5762652404d7584529d0a9a0fc3b89821c0852e43bce95f",
+			"keccak256": "0x16c9b745c10aaf50d95f5e3999058c68ea78be4d953683963fe59e8b6bcbcb6a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://1a303380fa11e63b957c764eba783107c22e49ceded0e8d08f379c7b1d7a4e39",
-				"dweb:/ipfs/QmaJ54w8imEB2UPjrANzc7CWZpYcLmo6BVb2aGEEHgiymZ"
+				"bzz-raw://6e178896f5e4b77bcd957140ffd27fd91f932c406b086945322e59e147fe584f",
+				"dweb:/ipfs/QmdEfpmb9tGsGMgA1Ne5S1dh6WdSvzoLxyYF6GBQfKTLvQ"
 			]
 		}
 	},

@@ -53,7 +53,7 @@
 			"allBartersLength()": "5c56559f",
 			"createBarter(address,address,uint256,uint256,uint256,uint8,bool,bool)": "40939a6d",
 			"feeCollector()": "c415b95c",
-			"getFees()": "db8d55f1",
+			"getFee()": "ced72f87",
 			"getUserBarter(address,uint256)": "60612180",
 			"getUserBarters(address)": "e71a76c9",
 			"getUserBartersLength(address)": "48403459",
@@ -62,7 +62,7 @@
 			"notifyWithdrawFromBarter(address,address,uint256,uint256)": "33796a0e",
 			"setFeeCollector(address)": "a42dce80",
 			"setPause(bool)": "bedb86fb",
-			"setUsePriceFeeds(uint256,uint256,bool)": "ccfd592d",
+			"setUsePriceFeeds(uint256,bool)": "ac9e981c",
 			"totalBarterDeployed()": "be931a41"
 		}
 	},
@@ -105,12 +105,6 @@
 					"internalType": "uint256",
 					"name": "_deadline",
 					"type": "uint256"
-				},
-				{
-					"indexed": false,
-					"internalType": "bool",
-					"name": "_shouldList",
-					"type": "bool"
 				}
 			],
 			"name": "SyCrowBarterCreated",
@@ -244,12 +238,12 @@
 				},
 				{
 					"internalType": "bool",
-					"name": "_shouldList",
+					"name": "_allowMultiBarter",
 					"type": "bool"
 				},
 				{
 					"internalType": "bool",
-					"name": "_allowMultiBarter",
+					"name": "_isPrivate",
 					"type": "bool"
 				}
 			],
@@ -279,16 +273,11 @@
 		},
 		{
 			"inputs": [],
-			"name": "getFees",
+			"name": "getFee",
 			"outputs": [
 				{
 					"internalType": "uint256",
-					"name": "baseFee",
-					"type": "uint256"
-				},
-				{
-					"internalType": "uint256",
-					"name": "listingFee",
+					"name": "",
 					"type": "uint256"
 				}
 			],
@@ -457,11 +446,6 @@
 				{
 					"internalType": "uint256",
 					"name": "_baseFee",
-					"type": "uint256"
-				},
-				{
-					"internalType": "uint256",
-					"name": "_listingFee",
 					"type": "uint256"
 				},
 				{

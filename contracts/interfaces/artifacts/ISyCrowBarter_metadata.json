@@ -7,6 +7,58 @@
 		"abi": [
 			{
 				"inputs": [],
+				"name": "allowMultiBarter",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "barterType",
+				"outputs": [
+					{
+						"internalType": "enum ISyCrowBarterType",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "completed",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "deadline",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "factory",
 				"outputs": [
 					{
@@ -72,6 +124,19 @@
 						"internalType": "uint256[]",
 						"name": "",
 						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "totalTradeAmount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -145,18 +210,18 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
 		"contracts/interfaces/ISyCrowBarter.sol": {
-			"keccak256": "0xfda4532f79218f318917a7e6eead42c9b8304ae2198009951a8f015d6f1f7fd6",
+			"keccak256": "0xf89f053fad6fc9183d4fb4b713c63721c0f966c68923c54450a3539d0f3982d6",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b8d4becdae792a02fe9fc65aa7805565943ffde6cae75653df6571ee2327d35e",
-				"dweb:/ipfs/QmVw3JBK8zztQ1aPbfSHASfwh2sN9ceSXen1Vo5cteahV4"
+				"bzz-raw://bdb15f807ef5d39691a5e45fee017688653f050e201a2baa4999a904b160dd01",
+				"dweb:/ipfs/QmNTiWruYdgdvsRtWPSNMqST1775ogrEKYTUKASemKY1mt"
 			]
 		}
 	},

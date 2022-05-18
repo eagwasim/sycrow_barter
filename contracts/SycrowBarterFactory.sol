@@ -21,7 +21,6 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
     // Fees are treated as the amount in the primary token unless _usePriceFeeds is enabled
     // Then we treat them as USD
     uint256 private _baseFee;
-    uint256 private _listingFee;
 
     AggregatorV3Interface internal _priceFeed;
 
@@ -29,7 +28,6 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
 
     constructor(
         uint256 baseFee,
-        uint256 listingFee,
         address priceFeed,
         address WETH
     ) {
@@ -38,7 +36,6 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
         totalBarterDeployed = 0;
 
         _baseFee = baseFee;
-        _listingFee = listingFee;
         feeCollector = _msgSender();
         _priceFeed = AggregatorV3Interface(priceFeed);
 
@@ -49,11 +46,11 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
         require(value > 0, "SyCrowBarterFactory: ZERO_VALUE");
     }
 
-    function getFees() public view override returns (uint256, uint256) {
+    function getFee() public view override returns (uint256) {
         if (usePriceFeeds) {
-            return (computeFee(_baseFee), computeFee(_listingFee));
+            return computeFee(_baseFee);
         }
-        return (_baseFee, _listingFee);
+        return _baseFee;
     }
 
     function setFeeCollector(address _feeCollector)
@@ -79,8 +76,8 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
         uint256 expected,
         uint256 deadline,
         ISyCrowBarterType barterType,
-        bool shouldList,
-        bool allowMultiBarter
+        bool allowMultiBarter,
+        bool isPrivate
     ) external payable override returns (address) {
         require(inToken != outToken, "SyCrowBarterFactory: IDENTICAL_TOKENS");
         require(
@@ -92,15 +89,7 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
             "SyCrowBarterFactory: DEADLINE_IN_THE_PAST"
         );
 
-        uint256 totalFees = 0;
-
-        if (shouldList) {
-            (uint256 baseFee, uint256 listingFee) = getFees();
-            totalFees = baseFee + listingFee;
-        } else {
-            (uint256 baseFee, ) = getFees();
-            totalFees = baseFee;
-        }
+        uint256 totalFees = getFee();
 
         if (barterType == ISyCrowBarterType.ETH_FOR_TOKEN) {
             require(
@@ -153,7 +142,10 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
 
         syCrowBarter.transferOwnership(msg.sender);
 
-        allBarters.push(barter);
+        if (!isPrivate) {
+            allBarters.push(barter);
+        }
+        
 
         _userBarters[msg.sender].push(barter);
 
@@ -163,21 +155,8 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
             barter,
             inToken,
             outToken,
-            deadline,
-            shouldList
+            deadline
         );
-
-        if (
-            barterType == ISyCrowBarterType.ETH_FOR_TOKEN &&
-            msg.value > (totalFees + deposited)
-        ) {
-            TransferHelper.safeTransferETH(
-                msg.sender,
-                msg.value - (totalFees + deposited)
-            );
-        } else if (msg.value > totalFees) {
-            TransferHelper.safeTransferETH(msg.sender, msg.value - totalFees);
-        }
 
         return barter;
     }
@@ -217,12 +196,10 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
     // base fee and listing fee in dollars when enabling and in ETH when disabled
     function setUsePriceFeeds(
         uint256 baseFee,
-        uint256 listingFee,
         bool enable
     ) external override onlyOwner {
         usePriceFeeds = enable;
         _baseFee = baseFee;
-        _listingFee = listingFee;
     }
 
     function computeFee(uint256 amount) internal view returns (uint256) {
@@ -266,4 +243,10 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
         totalBarterDeployed = totalBarterDeployed + 1;
         return barter;
     }
+
+    // Function to receive Ether. msg.data must be empty
+    receive() external payable {}
+
+    // Fallback function is called when msg.data is not empty
+    fallback() external payable {}
 }

@@ -25,6 +25,16 @@ interface ISyCrowBarter {
     function tradeTokenForEth(uint256 inAmount) external;
 
     function tradeEthForToken(uint256 inAmount) external payable;
+    
+    function totalTradeAmount() external view returns(uint256);
+
+    function allowMultiBarter() external view returns(bool);
+    
+    function completed() external view returns(bool);
+
+    function deadline() external view returns (uint256);
+
+    function barterType() external view returns (ISyCrowBarterType);
 
     function withdraw() external;
 }

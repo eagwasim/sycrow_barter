@@ -10,8 +10,7 @@ interface ISyCrowBarterFactory {
         address indexed _barter,
         address _inToken,
         address _outToken,
-        uint256 _deadline,
-        bool _shouldList
+        uint256 _deadline
     );
     event SyCrowTradeByBarter(
         address indexed _barter,
@@ -33,13 +32,12 @@ interface ISyCrowBarterFactory {
         uint256 _expected,
         uint256 _deadline,
         ISyCrowBarterType _type,
-        bool _shouldList,
         bool _allowMultiBarter
     ) external payable returns (address barter);
 
     function totalBarterDeployed() external returns (uint256);
 
-    function getFees() external returns (uint256 baseFee, uint256 listingFee);
+    function getFee() external returns (uint256);
 
     function setFeeCollector(address _feeCollector) external;
 
@@ -70,7 +68,6 @@ interface ISyCrowBarterFactory {
 
     function setUsePriceFeeds(
         uint256 _baseFee,
-        uint256 _listingFee,
         bool enable
     ) external;
 

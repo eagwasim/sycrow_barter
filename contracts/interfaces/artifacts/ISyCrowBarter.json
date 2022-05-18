@@ -49,10 +49,15 @@
 		},
 		"gasEstimates": null,
 		"methodIdentifiers": {
+			"allowMultiBarter()": "c6ea7038",
+			"barterType()": "89523742",
+			"completed()": "9d9a7fe9",
+			"deadline()": "29dcb0cf",
 			"factory()": "c45a0155",
 			"getAmounts()": "3d370b4e",
 			"getTokens()": "aa6ca808",
 			"getTrades()": "e43372e9",
+			"totalTradeAmount()": "40a6f1ab",
 			"tradeEthForToken(uint256)": "4341f920",
 			"tradeTokenForEth(uint256)": "0d182605",
 			"tradeTokenForToken(uint256)": "2ffc6887",
@@ -60,6 +65,58 @@
 		}
 	},
 	"abi": [
+		{
+			"inputs": [],
+			"name": "allowMultiBarter",
+			"outputs": [
+				{
+					"internalType": "bool",
+					"name": "",
+					"type": "bool"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "barterType",
+			"outputs": [
+				{
+					"internalType": "enum ISyCrowBarterType",
+					"name": "",
+					"type": "uint8"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "completed",
+			"outputs": [
+				{
+					"internalType": "bool",
+					"name": "",
+					"type": "bool"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "deadline",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
 		{
 			"inputs": [],
 			"name": "factory",
@@ -127,6 +184,19 @@
 					"internalType": "uint256[]",
 					"name": "",
 					"type": "uint256[]"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "totalTradeAmount",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
 				}
 			],
 			"stateMutability": "view",
