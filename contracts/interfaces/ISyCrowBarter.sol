@@ -43,5 +43,5 @@ interface ISyCrowBarter {
         uint256 deadline,
         bool allowMultiBarter,
         address wethAddress
-    ) external returns (bool)
+    ) external returns (bool);
 }

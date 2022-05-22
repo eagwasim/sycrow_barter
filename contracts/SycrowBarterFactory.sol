@@ -2,12 +2,8 @@
 
 pragma solidity ^0.8.13;
 
-import "./interfaces/Ownable.sol";
 import "./interfaces/AggregatorV3Interface.sol";
-import "./interfaces/ISyCrowBarterFactory.sol";
-import "./interfaces/ISyCrowBarter.sol";
-import "./interfaces/IERC20.sol";
-
+import "./SyCrowBarter.sol";
 
 contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable, ReentrancyGuard {
     address public immutable _WETH;

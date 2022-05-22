@@ -1,8 +1,7 @@
 {
   "name": "sycrow_barter",
   "version": "1.0.0",
-  "description": "Sycrow Barter Core",
-  "main": "truffle-config.js",
+  "description": "Sycrow Token Barter Core",
   "directories": {
     "test": "test"
   },
@@ -12,8 +11,7 @@
   "author": "Agwasim Emmanuel",
   "license": "MIT",
   "dependencies": {
-    "@chainlink/contracts": "^0.4.1",
-    "@openzeppelin/cli": "^2.8.2",
-    "@openzeppelin/contracts": "^4.6.0"
+    "@truffle/hdwallet-provider": "^2.0.8",
+    "dotenv": "^16.0.1"
   }
 }

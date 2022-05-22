@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
-import "./ISyCrowBarterType.sol";
+import "../enums/ISyCrowBarterType.sol";
 
-pragma solidity = 0.8.14;
+pragma solidity ^0.8.13;
 
 interface ISyCrowBarterFactory {
     event Creation(

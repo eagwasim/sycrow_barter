@@ -5,9 +5,10 @@ pragma solidity ^0.8.13;
 import "./interfaces/Ownable.sol";
 import "./interfaces/ReentrancyGuard.sol";
 import "./interfaces/ISyCrowBarterFactory.sol";
+import "./interfaces/ISyCrowBarter.sol";
+import "./interfaces/IWETH.sol";
 import "./interfaces/IERC20.sol";
 import "./libraries/TransferHelper.sol";
-import "./interfaces/IWETH.sol";
 
 contract SyCrowBarter is ISyCrowBarter, Ownable, ReentrancyGuard {
     address public immutable override factory;
