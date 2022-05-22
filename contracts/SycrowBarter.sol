@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity =0.8.13;
+pragma solidity ^0.8.13;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "./interfaces/Ownable.sol";
+import "./interfaces/ReentrancyGuard.sol";
 import "./interfaces/ISyCrowBarterFactory.sol";
 import "./interfaces/IERC20.sol";
 import "./libraries/TransferHelper.sol";
@@ -80,7 +80,7 @@ contract SyCrowBarter is ISyCrowBarter, Ownable, ReentrancyGuard {
         uint256 _deadline,
         bool _allowMultiBarter,
         address _WETH
-    ) external returns (bool) {
+    ) external override returns (bool) {
         require(msg.sender == factory, "SyCrowBarter: FORBIDDEN");
 
         require(!_initialized, "SyCrowBarter: ALREADY_INITIALIZED");

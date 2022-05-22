@@ -1,12 +1,8 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity =0.8.13;
+pragma solidity ^0.8.13;
 
-enum ISyCrowBarterType {
-    ETH_FOR_TOKEN,
-    TOKEN_FOR_ETH,
-    TOKEN_FOR_TOKEN
-}
+import "../enums/ISyCrowBarterType.sol";
 
 interface ISyCrowBarter {
     function factory() external view returns (address);
@@ -37,4 +33,15 @@ interface ISyCrowBarter {
     function barterType() external view returns (ISyCrowBarterType);
 
     function withdraw() external;
+
+    function initialize(
+        ISyCrowBarterType barterType,
+        address inToken,
+        address outToken,
+        uint256 amountDeposited,
+        uint256 amountExpected,
+        uint256 deadline,
+        bool allowMultiBarter,
+        address wethAddress
+    ) external returns (bool)
 }

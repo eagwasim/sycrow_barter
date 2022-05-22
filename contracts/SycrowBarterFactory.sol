@@ -1,14 +1,13 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity =0.8.13;
+pragma solidity ^0.8.13;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
-
+import "./interfaces/Ownable.sol";
+import "./interfaces/AggregatorV3Interface.sol";
 import "./interfaces/ISyCrowBarterFactory.sol";
+import "./interfaces/ISyCrowBarter.sol";
 import "./interfaces/IERC20.sol";
-import "./SyCrowBarter.sol";
+
 
 contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable, ReentrancyGuard {
     address public immutable _WETH;
@@ -151,7 +150,7 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable, ReentrancyGuard {
         
         _userBarters[msg.sender].push(barter);
 
-        emit SyCrowBarterCreated(
+        emit Creation(
             barterType,
             msg.sender,
             barter,
@@ -211,21 +210,21 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable, ReentrancyGuard {
     }
 
     function notifyTradeByBarter(
-        address _barter,
-        address _trader,
-        uint256 _inAmount,
-        uint256 _outAmount
+        address barter,
+        address trader,
+        uint256 inAmount,
+        uint256 outAmount
     ) external isChild {
-        emit SyCrowTradeByBarter(_barter, _trader, _inAmount, _outAmount);
+        emit Trade(barter, trader, inAmount, outAmount);
     }
 
     function notifyWithdrawFromBarter(
-        address _barter,
-        address _trader,
-        uint256 _value1,
-        uint256 _value2
+        address barter,
+        address trader,
+        uint256 value1,
+        uint256 value2
     ) external isChild {
-        emit SyCrowWithdrawFromBarter(_barter, _trader, _value1, _value2);
+        emit Completion(barter, trader, value1, value2);
     }
 
     function deployBarter() internal returns (address barter) {

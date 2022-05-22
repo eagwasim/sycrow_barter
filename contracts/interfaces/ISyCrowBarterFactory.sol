@@ -1,42 +1,42 @@
 // SPDX-License-Identifier: MIT
-import "./ISyCrowBarter.sol";
+import "./ISyCrowBarterType.sol";
 
-pragma solidity = 0.8.13;
+pragma solidity = 0.8.14;
 
 interface ISyCrowBarterFactory {
-    event SyCrowBarterCreated(
-        ISyCrowBarterType _barterType,
-        address indexed _createdBy,
-        address indexed _barter,
-        address _inToken,
-        address _outToken,
-        uint256 _deadline,
-        bool _isPrivate
+    event Creation(
+        ISyCrowBarterType barterType,
+        address indexed createdBy,
+        address indexed barter,
+        address inToken,
+        address outToken,
+        uint256 deadline,
+        bool isPrivate
     );
 
-    event SyCrowTradeByBarter(
-        address indexed _barter,
-        address indexed _trader,
-        uint256 _inAmount,
+    event Trade(
+        address indexed barter,
+        address indexed trader,
+        uint256 inAmount,
         uint256 outAmount
     );
 
-    event SyCrowWithdrawFromBarter(
-        address indexed _barter,
-        address indexed _trader,
-        uint256 _value1,
-        uint256 _value2
+    event Completion(
+        address indexed barter,
+        address indexed trader,
+        uint256 value1,
+        uint256 value2
     );
 
     function createBarter(
-        address _inToken,
-        address _outToken,
-        uint256 _deposited,
-        uint256 _expected,
-        uint256 _deadline,
-        ISyCrowBarterType _type,
-        bool _allowMultiBarter,
-        bool _isPrivate
+        address inToken,
+        address outToken,
+        uint256 deposited,
+        uint256 expected,
+        uint256 deadline,
+        ISyCrowBarterType barterType,
+        bool allowMultiBarter,
+        bool isPrivate
     ) external payable returns (address barter);
 
     function totalBarterDeployed() external returns (uint256);
