@@ -363,7 +363,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/SycrowBarter.sol": "SyCrowBarter"
+			"contracts/SyCrowBarter.sol": "SyCrowBarter"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -401,20 +401,20 @@
 				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
 			]
 		},
-		"contracts/SycrowBarter.sol": {
-			"keccak256": "0xb2fbfa6ac6fd231ffa9db5d5405bac7418e002d2285887161edd12bf24478ce3",
+		"contracts/SyCrowBarter.sol": {
+			"keccak256": "0x9728a6268a968ef4da909455cfb3825fc954cde9ab6551e7eb9ac1f659ac1e76",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7427bf739b10eb56b029636c1a93cdfb240c2d57baa4edfba9b3c12f8d165db4",
-				"dweb:/ipfs/QmUahnmS6QTsBxeYsujrr9BtmMBhMu6XkgKVfK2M9NZk8R"
+				"bzz-raw://f80740865784e813a5da0b69748e61129488da7f42eae05c249dc2ef56783a9d",
+				"dweb:/ipfs/QmStB6eSSL9Uzapy9RVNkBgZUfT6a8qc1iTEFyABUWMz5n"
 			]
 		},
 		"contracts/interfaces/IERC20.sol": {
-			"keccak256": "0x6a893389aeb9cf9b279b402c7d4b56196c6cdcc13dcb1802dfcf6e29559d3ba3",
+			"keccak256": "0x867d929fef5a0612cfd78ee70db7d70a39d62a251220133a14a5ff9b4a0b122d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7d554598212ea1aa0c0fccee4b9b469df5d938bafa5c42c2a67a93f3b715fd63",
-				"dweb:/ipfs/QmVbvYR5QFtpY39fzwTWKk1ghpXusizgz62wbpf75GLXkn"
+				"bzz-raw://3b267eff6bf024caa15d33f8b3f87043c641c4e2aec873db451dd9df41473757",
+				"dweb:/ipfs/QmWNWcN7BsEJtXPXTFfkCpEnc7PTLGfGZQPEgxnsKu4S6d"
 			]
 		},
 		"contracts/interfaces/ISyCrowBarter.sol": {
@@ -426,11 +426,11 @@
 			]
 		},
 		"contracts/interfaces/ISyCrowBarterFactory.sol": {
-			"keccak256": "0x0b1fabbedd2b3879a1ff66ea2b9369b547490475f4275a02a4b7f7b6e937b759",
+			"keccak256": "0x5eb41969b923a4308417ca509a2f98c4fc41b53cd927ffdccdce9405d419b254",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b247d38e8e59a175bbded7a94c62cf87e3d2ab3d2a15a8f33432bcdc1d455863",
-				"dweb:/ipfs/QmYBeQkcovGLykFLfLy1kTasHK6r2DGVQLQVCLT9u8J5z3"
+				"bzz-raw://57b658e7f2919b47fcfe543930f9c57da9ec968538683f828df5f49b3169f981",
+				"dweb:/ipfs/QmaVBRVsXqc1uvj7QTufoURtvBjaqSF23HQt3ZUgyKg4ep"
 			]
 		},
 		"contracts/interfaces/IWETH.sol": {

@@ -1,0 +1,1 @@
+solcjs --bin --abi --include-path node_modules/ --optimize --base-path . contracts/SycrowBarterFactory.sol -o /Users/monaco/Workspace/Projects/Sycrow/sycrow_api/src/main/resources/solidity

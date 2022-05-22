@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 import "./ISyCrowBarter.sol";
 
-pragma solidity =0.8.13;
+pragma solidity = 0.8.13;
 
 interface ISyCrowBarterFactory {
     event SyCrowBarterCreated(
@@ -10,15 +10,18 @@ interface ISyCrowBarterFactory {
         address indexed _barter,
         address _inToken,
         address _outToken,
-        uint256 _deadline
+        uint256 _deadline,
+        bool _isPrivate
     );
+
     event SyCrowTradeByBarter(
         address indexed _barter,
         address indexed _trader,
         uint256 _inAmount,
         uint256 outAmount
     );
-    event SyCrowWithdrawFromBater(
+
+    event SyCrowWithdrawFromBarter(
         address indexed _barter,
         address indexed _trader,
         uint256 _value1,
@@ -32,7 +35,8 @@ interface ISyCrowBarterFactory {
         uint256 _expected,
         uint256 _deadline,
         ISyCrowBarterType _type,
-        bool _allowMultiBarter
+        bool _allowMultiBarter,
+        bool _isPrivate
     ) external payable returns (address barter);
 
     function totalBarterDeployed() external returns (uint256);
@@ -84,4 +88,5 @@ interface ISyCrowBarterFactory {
         uint256 _value1,
         uint256 _value2
     ) external;
+
 }

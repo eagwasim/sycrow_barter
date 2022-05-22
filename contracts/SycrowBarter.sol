@@ -214,7 +214,6 @@ contract SyCrowBarter is ISyCrowBarter, Ownable, ReentrancyGuard {
             IERC20(_expectedTokenAddress).balanceOf(msg.sender) >= inAmount,
             "SyCrowBarter: INSUFFICIENT_BALANCE"
         );
-
         uint256 outAmount = getTradeOutAmount(inAmount);
 
         require(
@@ -287,14 +286,11 @@ contract SyCrowBarter is ISyCrowBarter, Ownable, ReentrancyGuard {
             inAmount,
             outAmount
         );
-        
-        completed = true;
-
-        require(completed);
     }
 
     function _tradeEthForToken(uint256 inAmount) internal {
         require(inAmount == msg.value, "SyCrowBarter: MULTI_TRADE_NOT_ENABLED");
+        require(_expectedAmount - totalTradeAmount >=  inAmount, "SyCrowBarter: INSUFICIENT_BARTER_BALANCE");
 
         uint256 outAmount = getTradeOutAmount(inAmount);
 
@@ -378,6 +374,7 @@ contract SyCrowBarter is ISyCrowBarter, Ownable, ReentrancyGuard {
             value1,
             value2
         );
+        completed = true;
     }
 
     function getTradeOutAmount(uint256 amount) public view returns (uint256) {

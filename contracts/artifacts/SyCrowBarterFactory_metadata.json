@@ -83,6 +83,12 @@
 						"internalType": "uint256",
 						"name": "_deadline",
 						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "bool",
+						"name": "_isPrivate",
+						"type": "bool"
 					}
 				],
 				"name": "SyCrowBarterCreated",
@@ -147,12 +153,8 @@
 						"type": "uint256"
 					}
 				],
-				"name": "SyCrowWithdrawFromBater",
+				"name": "SyCrowWithdrawFromBarter",
 				"type": "event"
-			},
-			{
-				"stateMutability": "payable",
-				"type": "fallback"
 			},
 			{
 				"inputs": [],
@@ -512,10 +514,6 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
-			},
-			{
-				"stateMutability": "payable",
-				"type": "receive"
 			}
 		],
 		"devdoc": {
@@ -541,7 +539,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/SycrowBarterFactory.sol": "SyCrowBarterFactory"
+			"contracts/SyCrowBarterFactory.sol": "SyCrowBarterFactory"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -588,43 +586,43 @@
 			]
 		},
 		"contracts/SyCrowBarter.sol": {
-			"keccak256": "0xba8be45dbda02ca84284ea801ff234601b1d074737d2c75404732efb385babc7",
+			"keccak256": "0x9728a6268a968ef4da909455cfb3825fc954cde9ab6551e7eb9ac1f659ac1e76",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://aa02f8f38a5edafdfcd71ba9fbfb2b99bba251a1a65eb4ad8e95669264f8a134",
-				"dweb:/ipfs/QmYp8nn3hgUNpCREJ4s83CSiQvM6kFWPJdDkESe6gZEyGm"
+				"bzz-raw://f80740865784e813a5da0b69748e61129488da7f42eae05c249dc2ef56783a9d",
+				"dweb:/ipfs/QmStB6eSSL9Uzapy9RVNkBgZUfT6a8qc1iTEFyABUWMz5n"
 			]
 		},
-		"contracts/SycrowBarterFactory.sol": {
-			"keccak256": "0x9549d6cf3b2378cbc0ddeb1b5437ab8f60dcecf1361bf883ae6ebd74658f382e",
+		"contracts/SyCrowBarterFactory.sol": {
+			"keccak256": "0x57b07697172f47539cf3efbaa27aff284bc25996dd7ba0a1424e93ad3a3ff779",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://ec81fd455318f34e53fb3312f0097adb337f12d2e5694368261a51f4976e6994",
-				"dweb:/ipfs/QmYo9qY5xfeQyVuSZGRR8y2h5Yr29bVhf1zrDNmAiGd9PN"
+				"bzz-raw://a4d7adcbbe393253a494f8eac574d4b44f1f88ca216fb3c3fde8ecd0458d56ed",
+				"dweb:/ipfs/QmXPjVHNrBPMGTV88CSHgRAMam1LB8nnXBzXveUUHkdGDk"
 			]
 		},
 		"contracts/interfaces/IERC20.sol": {
-			"keccak256": "0x6a893389aeb9cf9b279b402c7d4b56196c6cdcc13dcb1802dfcf6e29559d3ba3",
+			"keccak256": "0x867d929fef5a0612cfd78ee70db7d70a39d62a251220133a14a5ff9b4a0b122d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7d554598212ea1aa0c0fccee4b9b469df5d938bafa5c42c2a67a93f3b715fd63",
-				"dweb:/ipfs/QmVbvYR5QFtpY39fzwTWKk1ghpXusizgz62wbpf75GLXkn"
+				"bzz-raw://3b267eff6bf024caa15d33f8b3f87043c641c4e2aec873db451dd9df41473757",
+				"dweb:/ipfs/QmWNWcN7BsEJtXPXTFfkCpEnc7PTLGfGZQPEgxnsKu4S6d"
 			]
 		},
 		"contracts/interfaces/ISyCrowBarter.sol": {
-			"keccak256": "0x9390da53add9dfbb92ada998c97e4e0b8995ce5ff74f615d190d4958e62d0956",
+			"keccak256": "0xf89f053fad6fc9183d4fb4b713c63721c0f966c68923c54450a3539d0f3982d6",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://04f234c68eb9b4a5bea631eee24f1c48c2fd76febd8a69ead7632bafea2a24db",
-				"dweb:/ipfs/QmZYcWL79qzDu1bgXKTxYeGYDujucyc9VWcEHUQboHzKbW"
+				"bzz-raw://bdb15f807ef5d39691a5e45fee017688653f050e201a2baa4999a904b160dd01",
+				"dweb:/ipfs/QmNTiWruYdgdvsRtWPSNMqST1775ogrEKYTUKASemKY1mt"
 			]
 		},
 		"contracts/interfaces/ISyCrowBarterFactory.sol": {
-			"keccak256": "0x16c9b745c10aaf50d95f5e3999058c68ea78be4d953683963fe59e8b6bcbcb6a",
+			"keccak256": "0x5eb41969b923a4308417ca509a2f98c4fc41b53cd927ffdccdce9405d419b254",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://6e178896f5e4b77bcd957140ffd27fd91f932c406b086945322e59e147fe584f",
-				"dweb:/ipfs/QmdEfpmb9tGsGMgA1Ne5S1dh6WdSvzoLxyYF6GBQfKTLvQ"
+				"bzz-raw://57b658e7f2919b47fcfe543930f9c57da9ec968538683f828df5f49b3169f981",
+				"dweb:/ipfs/QmaVBRVsXqc1uvj7QTufoURtvBjaqSF23HQt3ZUgyKg4ep"
 			]
 		},
 		"contracts/interfaces/IWETH.sol": {

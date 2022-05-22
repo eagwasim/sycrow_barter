@@ -3,13 +3,14 @@
 pragma solidity =0.8.13;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 import "./interfaces/ISyCrowBarterFactory.sol";
 import "./interfaces/IERC20.sol";
 import "./SyCrowBarter.sol";
 
-contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
+contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable, ReentrancyGuard {
     address public immutable _WETH;
     address public override feeCollector;
     address[] public override allBarters;
@@ -21,6 +22,7 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
     // Fees are treated as the amount in the primary token unless _usePriceFeeds is enabled
     // Then we treat them as USD
     uint256 private _baseFee;
+    uint256 private _allBarterLength;
 
     AggregatorV3Interface internal _priceFeed;
 
@@ -34,6 +36,7 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
         isPaused = false;
         usePriceFeeds = false;
         totalBarterDeployed = 0;
+        _allBarterLength = 0;
 
         _baseFee = baseFee;
         feeCollector = _msgSender();
@@ -146,7 +149,6 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
             allBarters.push(barter);
         }
         
-
         _userBarters[msg.sender].push(barter);
 
         emit SyCrowBarterCreated(
@@ -155,7 +157,8 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
             barter,
             inToken,
             outToken,
-            deadline
+            deadline,
+            isPrivate
         );
 
         return barter;
@@ -222,14 +225,7 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
         uint256 _value1,
         uint256 _value2
     ) external isChild {
-        emit SyCrowWithdrawFromBater(_barter, _trader, _value1, _value2);
-
-        for (uint256 index = 0; index < allBarters.length; index++) {
-            if (allBarters[index] == _barter) {
-                delete allBarters[index];
-                break;
-            }
-        }
+        emit SyCrowWithdrawFromBarter(_barter, _trader, _value1, _value2);
     }
 
     function deployBarter() internal returns (address barter) {
@@ -243,10 +239,4 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable {
         totalBarterDeployed = totalBarterDeployed + 1;
         return barter;
     }
-
-    // Function to receive Ether. msg.data must be empty
-    receive() external payable {}
-
-    // Fallback function is called when msg.data is not empty
-    fallback() external payable {}
 }
