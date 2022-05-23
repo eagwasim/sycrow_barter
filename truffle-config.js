@@ -9,6 +9,14 @@ module.exports = {
       port: 8545,
       network_id: "*"
     },
+    avaxtest: {
+      provider: () => new HDWalletProvider(process.env.MNEMONIC, "https://api.avax-test.network/ext/bc/C/rpc"),
+      network_id: 43113,
+      gas: 8000000,
+      gasPrice: 225000000000,
+      timeoutBlocks: 200,
+      skipDryRun: true
+    },
     fantom: {
       provider: () => new HDWalletProvider(process.env.MNEMONIC, "https://rpcapi.fantom.network"),
       network_id: 250,
@@ -27,7 +35,7 @@ module.exports = {
       provider: () => new HDWalletProvider(process.env.MNEMONIC, "https://mainnet.infura.io/v3/" + process.env.INFURA_API_KEY),
       port: 8545,
       network_id: 1,
-      gas: 6000000,
+      gas: 10000000,
       gasPrice: 4000000000
     },
 
@@ -35,13 +43,15 @@ module.exports = {
       provider: () => new HDWalletProvider(process.env.MNEMONIC, "https://ropsten.infura.io/v3/" + process.env.INFURA_API_KEY),
       port: 8545,
       network_id: 3,
-      gas: 6000000,
+      gas: 10000000,
       gasPrice: 40000000000
     },
     bsctest: {
-      provider: () => new HDWalletProvider(process.env.MNEMONIC, "https://data-seed-prebsc-1-s1.binance.org:8545/"),
+      provider: () => new HDWalletProvider(process.env.MNEMONIC, "https://data-seed-prebsc-1-s1.binance.org:8545"),
       network_id: 97,
-      gasPrice: 22000000000,
+      gas: 3527407,
+      gasPrice: 10000000000000000000,
+      networkCheckTimeoutnetworkCheckTimeout: 10000,
       timeoutBlocks: 200,
       skipDryRun: true
     },
@@ -53,10 +63,11 @@ module.exports = {
       skipDryRun: true
     },
     matictest: {
-      provider: () => new HDWalletProvider(process.env.MNEMONIC, "https://rpc-mumbai.maticvigil.com/"),
+      provider: () => new HDWalletProvider(process.env.MNEMONIC, "https://rpc-mumbai.matic.today"),
       network_id: 80001,
-      gasPrice: 22000000000,
+      confirmations: 2,
       timeoutBlocks: 200,
+      networkCheckTimeoutnetworkCheckTimeout: 10000,
       skipDryRun: true
     },
     matic: {
@@ -87,7 +98,7 @@ module.exports = {
        settings: {          // See the solidity docs for advice about optimization and evmVersion
         optimizer: {
           enabled: true,
-          runs: 999999
+          runs: 9999999
         },
       //  evmVersion: "byzantium"
       // }

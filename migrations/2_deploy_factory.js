@@ -10,10 +10,11 @@ const params = {
 		priceFeed: "0xe04676B9A9A2973BCb0D1478b5E1E9098BBB7f3D",
 	},
 	matictest: {
-		priceFeed: "0xd0D5e3DB44DE05E9F294BB0a3bEEaF030DE24Ada",
     weth: "0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889",
+		priceFeed: "0xd0D5e3DB44DE05E9F294BB0a3bEEaF030DE24Ada",
 	},
 	bsctest: {
+    weth: "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
 		priceFeed: "0x2514895c72f50D8bd4B4F9b1110F0D6bD2c97526",
 	},
   kovan: {

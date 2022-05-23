@@ -1,0 +1,644 @@
+{
+	"compiler": {
+		"version": "0.8.14+commit.80d49f37"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "baseFee",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "priceFeed",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "WETH",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "barter",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "trader",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "value1",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "value2",
+						"type": "uint256"
+					}
+				],
+				"name": "Completion",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "enum ISyCrowBarterType",
+						"name": "barterType",
+						"type": "uint8"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "createdBy",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "barter",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "inToken",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "outToken",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "deadline",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "bool",
+						"name": "isPrivate",
+						"type": "bool"
+					}
+				],
+				"name": "Creation",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "previousOwner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "barter",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "trader",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "inAmount",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "outAmount",
+						"type": "uint256"
+					}
+				],
+				"name": "Trade",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "_WETH",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "allBarters",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "allBartersLength",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "inToken",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "outToken",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "deposited",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "expected",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "deadline",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum ISyCrowBarterType",
+						"name": "barterType",
+						"type": "uint8"
+					},
+					{
+						"internalType": "bool",
+						"name": "allowMultiBarter",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "isPrivate",
+						"type": "bool"
+					}
+				],
+				"name": "createBarter",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "feeCollector",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getFee",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "userAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					}
+				],
+				"name": "getUserBarter",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "userAddress",
+						"type": "address"
+					}
+				],
+				"name": "getUserBarters",
+				"outputs": [
+					{
+						"internalType": "address[]",
+						"name": "barters",
+						"type": "address[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "userAddress",
+						"type": "address"
+					}
+				],
+				"name": "getUserBartersLength",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "isPaused",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "barter",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "trader",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "inAmount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "outAmount",
+						"type": "uint256"
+					}
+				],
+				"name": "notifyTradeByBarter",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "barter",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "trader",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "value1",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "value2",
+						"type": "uint256"
+					}
+				],
+				"name": "notifyWithdrawFromBarter",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "renounceOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_feeCollector",
+						"type": "address"
+					}
+				],
+				"name": "setFeeCollector",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bool",
+						"name": "_pause",
+						"type": "bool"
+					}
+				],
+				"name": "setPause",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "baseFee",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "enable",
+						"type": "bool"
+					}
+				],
+				"name": "setUsePriceFeeds",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "totalBarterDeployed",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "usePriceFeeds",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/SyCrowBarterFactory.sol": "SyCrowBarterFactory"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/SyCrowBarter.sol": {
+			"keccak256": "0x3069ec8bb2dd9d85546495a0268fdcb4031cf6d76822be151347ec0eb8fc6d0d",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://9b6fc5b34c990457dc52e90f64524cb3e561842196c55eb2565ac3af17ee334e",
+				"dweb:/ipfs/QmQmsuHauNujfUxkn5JL1mijvSj8dLhkucdMXu7NdLS8kU"
+			]
+		},
+		"contracts/SyCrowBarterFactory.sol": {
+			"keccak256": "0x936f6db392963367b5ae553a7f110b72ae23a278769fee01b11b46b75898d065",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://7f1800658e1e5584514928cfc3c79640802291345a79de61d7cddafd10cd59f4",
+				"dweb:/ipfs/QmeMD6kA1RNubrms4GwWB9krYyDBdpx38mJY8dknmNrEsB"
+			]
+		},
+		"contracts/enums/ISyCrowBarterType.sol": {
+			"keccak256": "0x592c41ce337bc8457dcd3a801ca14e2901dd06facc005d7782ebbff7dac99add",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://df6577e434f10f294cc19a953876d404d74a24b5430f68f78243993dc4686765",
+				"dweb:/ipfs/Qmc1GB74rptE9bE4ZP3iydMbWUc8NZgZJxXfxzzwXAqz1W"
+			]
+		},
+		"contracts/interfaces/AggregatorV3Interface.sol": {
+			"keccak256": "0x5deab9027e4f9531c84c1fb631e8750cd34f9bd6a37bedbd97f81f4c40fb3a29",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6dcc8255df6fbbdd9c1d9e619c4fa3f786d1dbe7c711ead0282231e456ba6c5c",
+				"dweb:/ipfs/QmaCeeQDgB2x2iJgxrNij9UkMdJNsJuTrUUXjE2LPNNz27"
+			]
+		},
+		"contracts/interfaces/Context.sol": {
+			"keccak256": "0x6a2ba7a92dad8f6969a845233632e1533b77e39d5285e270f65c71d68219d94b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://9a31e68a163c47d53b7a292ec41a8cd487884a21aa2a7bcc71215baedb4a8212",
+				"dweb:/ipfs/QmaqUD7FyW59TFcL7K8QcA7K86LUJE5KMMeFvKSCdhXjyp"
+			]
+		},
+		"contracts/interfaces/IERC20.sol": {
+			"keccak256": "0x352991786e24811e4ead7f6bc22dc8b811a541d781e162b33dabd5134bf0da51",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://b38c33e1a9f641d1a79eca58a98ca6e19ee7acf63cecf6f556e911d6d3bbf51e",
+				"dweb:/ipfs/QmRjbj8rbuefAUNF8Qf7jBENJn4x4KVDCjwwnEgtNfPrD6"
+			]
+		},
+		"contracts/interfaces/ISyCrowBarter.sol": {
+			"keccak256": "0x8a928cc854bb86626e4b16e1ae1637e21432c96bc4b78adc46ec1e159767b964",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://2ee28e87f4d703b02fe760f81604452be89cbd941e4224469137b418fe410e13",
+				"dweb:/ipfs/QmYSJeNXxy4XMrZZAW6WbvK14BojjgE8HY4N9ujowL82p6"
+			]
+		},
+		"contracts/interfaces/ISyCrowBarterFactory.sol": {
+			"keccak256": "0x87d524bf6e058f9cfb4af90d91d75ca9ef8df1ba0117b661c0964cdc066fb32b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://1ec86800eb9ab9cdaeb52e4aeb4c65e4fcbcb0f262b30df2455d6957206245ea",
+				"dweb:/ipfs/QmcGMQWfa6dt1wv4SQcxtFmjputL9zzr8piQh6gDckWUcJ"
+			]
+		},
+		"contracts/interfaces/IWETH.sol": {
+			"keccak256": "0x81c45998a56d10096823b8f797277448840dcfe7c476c8059eaecf50401f3957",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://b6a7a3e1fc3d9e4ea40b9861ec2e158815737ed38eed608311a1ea4b7eafb71d",
+				"dweb:/ipfs/QmWjQkQ5CRcdfkvLtfNxYpgqikEjgo1TmtesW8Fhf4Jjqc"
+			]
+		},
+		"contracts/interfaces/Ownable.sol": {
+			"keccak256": "0xa34b483a9fa288a1c6ebc1870bc3f5b77ba00bc2603b4730186a67f4129c60dd",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://0d5321e0c0bcd7735fc215d56a94e14883026a905c33cf8674282ed0cf7ab6c7",
+				"dweb:/ipfs/QmP1EsJywV6e1fUoHMN7sKNsFBRfM1SNow1k2Ba4Msh81K"
+			]
+		},
+		"contracts/interfaces/ReentrancyGuard.sol": {
+			"keccak256": "0xe9dac8e4007ce82f3fd553c5b5f477d7a6cc9f3611226a274278ecba331ac4bc",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://883c2c586f27b5b7fe7a9bcc3cc459904d7823d963f0efcdd912ecae558ec5bc",
+				"dweb:/ipfs/QmXersGchZ83kq5aoxV1u6RFQXB68oxvy2ujK1oxHevoyF"
+			]
+		},
+		"contracts/libraries/TransferHelper.sol": {
+			"keccak256": "0xf93e8f83fe98b787087a4e3c20e364095812faf75620fdc4c1a14b0a3189c274",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://64a76301d46706d76222ec58daa3638246b6b1029813b32952dcaba616efc147",
+				"dweb:/ipfs/QmUD6FtNgzajQKx2tmU3vBTSVeAgM28Asxeyb8xa4pGV73"
+			]
+		}
+	},
+	"version": 1
+}
