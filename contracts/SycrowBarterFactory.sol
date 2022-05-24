@@ -229,7 +229,7 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable, ReentrancyGuard {
     function deployBarter() internal returns (address barter) {
         bytes memory bytecode = type(SyCrowBarter).creationCode;
         bytes32 salt = keccak256(
-            abi.encodePacked(address(this), totalBarterDeployed)
+            abi.encodePacked(address(this), msg.sender, totalBarterDeployed)
         );
         assembly {
             barter := create2(0, add(bytecode, 32), mload(bytecode), salt)

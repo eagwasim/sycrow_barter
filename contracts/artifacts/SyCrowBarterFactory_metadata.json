@@ -529,7 +529,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/SyCrowBarterFactory.sol": "SyCrowBarterFactory"
+			"contracts/SycrowBarterFactory.sol": "SyCrowBarterFactory"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -544,19 +544,19 @@
 	},
 	"sources": {
 		"contracts/SyCrowBarter.sol": {
-			"keccak256": "0x3069ec8bb2dd9d85546495a0268fdcb4031cf6d76822be151347ec0eb8fc6d0d",
+			"keccak256": "0x4ab095a02e68822ea94bf6834f7bc5869e812a35d5f235c4737d6aa8ff8fe583",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9b6fc5b34c990457dc52e90f64524cb3e561842196c55eb2565ac3af17ee334e",
-				"dweb:/ipfs/QmQmsuHauNujfUxkn5JL1mijvSj8dLhkucdMXu7NdLS8kU"
+				"bzz-raw://a56bd433eddd2ec5a5da220a63bd1c0eed242c177446b28b0a54e98948c3d2f9",
+				"dweb:/ipfs/QmQXgXb2foaSyzqzBuJdkTP4RKuCBtNQsHMnaVL9auwvhn"
 			]
 		},
-		"contracts/SyCrowBarterFactory.sol": {
-			"keccak256": "0x936f6db392963367b5ae553a7f110b72ae23a278769fee01b11b46b75898d065",
+		"contracts/SycrowBarterFactory.sol": {
+			"keccak256": "0x28ba8b58a5ba26341c080399994704b5b6fae3b17c98f82c0b63ed93ed5d7ae9",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7f1800658e1e5584514928cfc3c79640802291345a79de61d7cddafd10cd59f4",
-				"dweb:/ipfs/QmeMD6kA1RNubrms4GwWB9krYyDBdpx38mJY8dknmNrEsB"
+				"bzz-raw://14cca012e3cff0d6a1219b44386ec02991815e115f07b5d7a708600f36098d47",
+				"dweb:/ipfs/QmeTvstjQcGCSAu3eRWU5T4Pd6jDqB26Q31M58XpFVT1TZ"
 			]
 		},
 		"contracts/enums/ISyCrowBarterType.sol": {
