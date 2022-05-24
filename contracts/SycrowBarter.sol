@@ -83,7 +83,6 @@ contract SyCrowBarter is ISyCrowBarter, Ownable, ReentrancyGuard {
         address _WETH
     ) external override returns (bool) {
         require(msg.sender == factory, "SyCrowBarter: FORBIDDEN");
-
         require(!_initialized, "SyCrowBarter: ALREADY_INITIALIZED");
         require(_deadline >= block.timestamp, "SyCrowBarter: PAST_DEADLINE");
 

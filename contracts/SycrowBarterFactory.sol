@@ -19,9 +19,10 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable, ReentrancyGuard {
     uint256 private _baseFee;
     uint256 private _allBarterLength;
 
-    AggregatorV3Interface internal _priceFeed;
+    address internal _priceFeed;
 
     mapping(address => address[]) private _userBarters;
+    mapping(address => bool) private _childBarters;
 
     constructor(
         uint256 baseFee,
@@ -35,7 +36,7 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable, ReentrancyGuard {
 
         _baseFee = baseFee;
         feeCollector = _msgSender();
-        _priceFeed = AggregatorV3Interface(priceFeed);
+        _priceFeed = priceFeed;
 
         _WETH = WETH;
     }
@@ -61,7 +62,7 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable, ReentrancyGuard {
 
     modifier isChild() {
         require(
-            ISyCrowBarter(msg.sender).factory() == address(this),
+            _childBarters[msg.sender],
             "SyCrowBarterFactory: FORBIDDEN"
         );
         _;
@@ -143,7 +144,8 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable, ReentrancyGuard {
         if (!isPrivate) {
             allBarters.push(barter);
         }
-        
+
+        _childBarters[barter] = true;
         _userBarters[msg.sender].push(barter);
 
         emit Creation(
@@ -201,7 +203,8 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable, ReentrancyGuard {
     }
 
     function computeFee(uint256 amount) internal view returns (uint256) {
-        (, int256 price, , , ) = _priceFeed.latestRoundData();
+        AggregatorV3Interface pfa = AggregatorV3Interface(_priceFeed);
+        (, int256 price, , , ) = pfa.latestRoundData();
         return (amount / (uint256(price) * 10**10)) * 10**18;
     }
 

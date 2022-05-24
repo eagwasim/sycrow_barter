@@ -1,0 +1,475 @@
+{
+	"compiler": {
+		"version": "0.8.14+commit.80d49f37"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "barter",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "trader",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "value1",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "value2",
+						"type": "uint256"
+					}
+				],
+				"name": "Completion",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "enum ISyCrowBarterType",
+						"name": "barterType",
+						"type": "uint8"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "createdBy",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "barter",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "inToken",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "outToken",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "deadline",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "bool",
+						"name": "isPrivate",
+						"type": "bool"
+					}
+				],
+				"name": "Creation",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "barter",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "trader",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "inAmount",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "outAmount",
+						"type": "uint256"
+					}
+				],
+				"name": "Trade",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "allBarters",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "barter",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "allBartersLength",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "inToken",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "outToken",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "deposited",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "expected",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "deadline",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum ISyCrowBarterType",
+						"name": "barterType",
+						"type": "uint8"
+					},
+					{
+						"internalType": "bool",
+						"name": "allowMultiBarter",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "isPrivate",
+						"type": "bool"
+					}
+				],
+				"name": "createBarter",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "barter",
+						"type": "address"
+					}
+				],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "feeCollector",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getFee",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "userAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					}
+				],
+				"name": "getUserBarter",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "userAddress",
+						"type": "address"
+					}
+				],
+				"name": "getUserBarters",
+				"outputs": [
+					{
+						"internalType": "address[]",
+						"name": "barters",
+						"type": "address[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "userAddress",
+						"type": "address"
+					}
+				],
+				"name": "getUserBartersLength",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "isPaused",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_barter",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_barterIndex",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "_trader",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_inAmount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "outAmount",
+						"type": "uint256"
+					}
+				],
+				"name": "notifyTradeByBarter",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_barter",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_barterIndex",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "_trader",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_value1",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_value2",
+						"type": "uint256"
+					}
+				],
+				"name": "notifyWithdrawFromBarter",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_feeCollector",
+						"type": "address"
+					}
+				],
+				"name": "setFeeCollector",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bool",
+						"name": "pause",
+						"type": "bool"
+					}
+				],
+				"name": "setPause",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_baseFee",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "enable",
+						"type": "bool"
+					}
+				],
+				"name": "setUsePriceFeeds",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "totalBarterDeployed",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/interfaces/ISyCrowBarterFactory.sol": "ISyCrowBarterFactory"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/enums/ISyCrowBarterType.sol": {
+			"keccak256": "0x592c41ce337bc8457dcd3a801ca14e2901dd06facc005d7782ebbff7dac99add",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://df6577e434f10f294cc19a953876d404d74a24b5430f68f78243993dc4686765",
+				"dweb:/ipfs/Qmc1GB74rptE9bE4ZP3iydMbWUc8NZgZJxXfxzzwXAqz1W"
+			]
+		},
+		"contracts/interfaces/ISyCrowBarterFactory.sol": {
+			"keccak256": "0xc9f5a152ac4ff73cc6a55e4aaf3ef06b3bd13b6036284351bd8b5ef6aea07bfd",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://99d062df4658fef1a3d67e10d619217804a2a1f0cfb6c8b5accc8359463daec9",
+				"dweb:/ipfs/QmY43hoUypoAZUNXsvDe3vY5scNmdSHYY3sxYG83fKZJNC"
+			]
+		}
+	},
+	"version": 1
+}
