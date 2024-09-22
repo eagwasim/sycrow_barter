@@ -47,5 +47,5 @@ const params = {
 const BASE_FEE = 0x38D7EA4C68000;
 
 module.exports = function (deployer, network) {
-	  deployer.deploy(SyCrowBarterFactory, BASE_FEE, params[network].priceFeed, params[network].weth);
+	deployer.deploy(SyCrowBarterFactory, BASE_FEE, params[network].priceFeed, params[network].weth);
 };

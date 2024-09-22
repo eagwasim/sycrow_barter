@@ -1,10 +1,3 @@
-// SPDX-License-Identifier: MIT
-
-pragma solidity ^0.8.13;
-
-import "./interfaces/AggregatorV3Interface.sol";
-import "./SyCrowBarter.sol";
-
 contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable, ReentrancyGuard {
     address public immutable _WETH;
     address public override feeCollector;
@@ -12,15 +5,10 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable, ReentrancyGuard {
 
     bool public override isPaused;
     bool public usePriceFeeds;
-
     uint256 public override totalBarterDeployed;
-    // Fees are treated as the amount in the primary token unless _usePriceFeeds is enabled
-    // Then we treat them as USD
+
     uint256 private _baseFee;
-    uint256 private _allBarterLength;
-
     address internal _priceFeed;
-
     mapping(address => address[]) private _userBarters;
     mapping(address => bool) private _childBarters;
 
@@ -29,43 +17,23 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable, ReentrancyGuard {
         address priceFeed,
         address WETH
     ) {
-        isPaused = false;
-        usePriceFeeds = false;
-        totalBarterDeployed = 0;
-        _allBarterLength = 0;
-
         _baseFee = baseFee;
-        feeCollector = _msgSender();
         _priceFeed = priceFeed;
-
         _WETH = WETH;
+        feeCollector = _msgSender();
     }
 
-    function nonZero(uint256 value) internal pure {
-        require(value > 0, "SyCrowBarterFactory: ZERO_VALUE");
+    modifier onlyValidChild() {
+        require(_childBarters[msg.sender], "SyCrowBarterFactory: FORBIDDEN");
+        _;
     }
 
     function getFee() public view override returns (uint256) {
-        if (usePriceFeeds) {
-            return computeFee(_baseFee);
-        }
-        return _baseFee;
+        return usePriceFeeds ? computeFee(_baseFee) : _baseFee;
     }
 
-    function setFeeCollector(address _feeCollector)
-        external
-        override
-        onlyOwner
-    {
-        feeCollector = _feeCollector;
-    }
-
-    modifier isChild() {
-        require(
-            _childBarters[msg.sender],
-            "SyCrowBarterFactory: FORBIDDEN"
-        );
-        _;
+    function setFeeCollector(address newCollector) external override onlyOwner {
+        feeCollector = newCollector;
     }
 
     function createBarter(
@@ -79,162 +47,93 @@ contract SyCrowBarterFactory is ISyCrowBarterFactory, Ownable, ReentrancyGuard {
         bool isPrivate
     ) external payable override returns (address) {
         require(inToken != outToken, "SyCrowBarterFactory: IDENTICAL_TOKENS");
-        require(
-            deposited > 0 && expected > 0,
-            "SyCrowBarterFactory: NON_ZERO_AMOUNTS"
-        );
-        require(
-            deadline >= block.timestamp,
-            "SyCrowBarterFactory: DEADLINE_IN_THE_PAST"
-        );
+        require(deposited > 0 && expected > 0, "SyCrowBarterFactory: INVALID_AMOUNTS");
+        require(deadline >= block.timestamp, "SyCrowBarterFactory: INVALID_DEADLINE");
 
         uint256 totalFees = getFee();
 
         if (barterType == ISyCrowBarterType.ETH_FOR_TOKEN) {
-            require(
-                msg.value >= totalFees + deposited,
-                "SyCrowBarterFactory: PAYMENT_UNVALUED"
-            );
-            require(inToken == _WETH, "SyCrowBarterFactory: WRONG_IN_TOKEN");
+            require(msg.value >= totalFees + deposited, "SyCrowBarterFactory: INSUFFICIENT_PAYMENT");
+            require(inToken == _WETH, "SyCrowBarterFactory: INVALID_IN_TOKEN");
         } else {
-            require(
-                msg.value >= totalFees,
-                "SyCrowBarterFactory: PAYMENT_UNVALUED"
-            );
-            require(
-                IERC20(inToken).balanceOf(msg.sender) >= deposited,
-                "SyCrowBarter: INSUFFICIENT_BALANCE"
-            );
+            require(msg.value >= totalFees, "SyCrowBarterFactory: INSUFFICIENT_PAYMENT");
+            require(IERC20(inToken).balanceOf(msg.sender) >= deposited, "SyCrowBarter: INSUFFICIENT_BALANCE");
         }
 
         address barter = deployBarter();
+        _handleBarterPayment(inToken, barterType, deposited, barter);
 
+        SyCrowBarter(payable(barter)).initialize(
+            barterType,
+            inToken,
+            outToken,
+            deposited,
+            expected,
+            deadline,
+            allowMultiBarter,
+            _WETH
+        );
+
+        SyCrowBarter(barter).transferOwnership(msg.sender);
+
+        if (!isPrivate) allBarters.push(barter);
+        _childBarters[barter] = true;
+        _userBarters[msg.sender].push(barter);
+
+        emit Creation(barterType, msg.sender, barter, inToken, outToken, deadline, isPrivate);
+        return barter;
+    }
+
+    function _handleBarterPayment(address inToken, ISyCrowBarterType barterType, uint256 deposited, address barter) internal {
         if (barterType == ISyCrowBarterType.ETH_FOR_TOKEN) {
             IWETH(_WETH).deposit{value: deposited}();
             TransferHelper.safeTransfer(_WETH, barter, deposited);
         } else {
-            TransferHelper.safeTransferFrom(
-                inToken,
-                msg.sender,
-                barter,
-                deposited
-            );
+            TransferHelper.safeTransferFrom(inToken, msg.sender, barter, deposited);
         }
+        TransferHelper.safeTransferETH(feeCollector, getFee());
+    }
 
-        TransferHelper.safeTransferETH(feeCollector, totalFees);
+    function setPause(bool pauseStatus) external override onlyOwner {
+        isPaused = pauseStatus;
+    }
 
-        SyCrowBarter syCrowBarter = SyCrowBarter(payable(barter));
+    function setUsePriceFeeds(uint256 baseFee, bool enable) external override onlyOwner {
+        usePriceFeeds = enable;
+        _baseFee = baseFee;
+    }
 
-        require(
-            syCrowBarter.initialize(
-                barterType,
-                inToken,
-                outToken,
-                deposited,
-                expected,
-                deadline,
-                allowMultiBarter,
-                _WETH
-            ),
-            "SyCrowBarterFactory: INITIALIZATION_FAILED"
-        );
-
-        syCrowBarter.transferOwnership(msg.sender);
-
-        if (!isPrivate) {
-            allBarters.push(barter);
-        }
-
-        _childBarters[barter] = true;
-        _userBarters[msg.sender].push(barter);
-
-        emit Creation(
-            barterType,
-            msg.sender,
-            barter,
-            inToken,
-            outToken,
-            deadline,
-            isPrivate
-        );
-
-        return barter;
+    function computeFee(uint256 amount) internal view returns (uint256) {
+        (, int256 price, , , ) = AggregatorV3Interface(_priceFeed).latestRoundData();
+        return (amount * 10**18) / (uint256(price) * 10**10);
     }
 
     function allBartersLength() external view override returns (uint256) {
         return allBarters.length;
     }
 
-    function getUserBarters(address userAddress)
-        external
-        view
-        returns (address[] memory barters)
-    {
+    function getUserBarters(address userAddress) external view returns (address[] memory) {
         return _userBarters[userAddress];
     }
 
-    function getUserBartersLength(address userAddress)
-        external
-        view
-        returns (uint256)
-    {
-        return _userBarters[userAddress].length;
-    }
-
-    function getUserBarter(address userAddress, uint256 index)
-        external
-        view
-        returns (address)
-    {
+    function getUserBarter(address userAddress, uint256 index) external view returns (address) {
         return _userBarters[userAddress][index];
-    }
-
-    function setPause(bool _pause) external override onlyOwner {
-        isPaused = _pause;
-    }
-
-    // base fee and listing fee in dollars when enabling and in ETH when disabled
-    function setUsePriceFeeds(
-        uint256 baseFee,
-        bool enable
-    ) external override onlyOwner {
-        usePriceFeeds = enable;
-        _baseFee = baseFee;
-    }
-
-    function computeFee(uint256 amount) internal view returns (uint256) {
-        AggregatorV3Interface pfa = AggregatorV3Interface(_priceFeed);
-        (, int256 price, , , ) = pfa.latestRoundData();
-        return (amount / (uint256(price) * 10**10)) * 10**18;
-    }
-
-    function notifyTradeByBarter(
-        address barter,
-        address trader,
-        uint256 inAmount,
-        uint256 outAmount
-    ) external isChild {
-        emit Trade(barter, trader, inAmount, outAmount);
-    }
-
-    function notifyWithdrawFromBarter(
-        address barter,
-        address trader,
-        uint256 value1,
-        uint256 value2
-    ) external isChild {
-        emit Completion(barter, trader, value1, value2);
     }
 
     function deployBarter() internal returns (address barter) {
         bytes memory bytecode = type(SyCrowBarter).creationCode;
-        bytes32 salt = keccak256(
-            abi.encodePacked(address(this), msg.sender, totalBarterDeployed)
-        );
+        bytes32 salt = keccak256(abi.encodePacked(address(this), msg.sender, totalBarterDeployed));
         assembly {
             barter := create2(0, add(bytecode, 32), mload(bytecode), salt)
         }
-        totalBarterDeployed = totalBarterDeployed + 1;
-        return barter;
+        totalBarterDeployed++;
+    }
+
+    function notifyTradeByBarter(address barter, address trader, uint256 inAmount, uint256 outAmount) external onlyValidChild {
+        emit Trade(barter, trader, inAmount, outAmount);
+    }
+
+    function notifyWithdrawFromBarter(address barter, address trader, uint256 value1, uint256 value2) external onlyValidChild {
+        emit Completion(barter, trader, value1, value2);
     }
 }
